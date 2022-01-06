@@ -1,14 +1,17 @@
-import { data } from '../../mock';
+import { ModalNewTask } from './modalNewTask/ModalNewTask';
+import { TaskList } from './taskList/TaskList';
+import { CreateYourFirstTask } from './createYourFirstTask/CreateYourFirstTask';
 import css from './Home.module.scss';
-import { TaskList } from './taskList/taskList';
 
 export function Home(): JSX.Element {
-  const taskListData = data;
-  const addNewTask = <button>Create Your First Task :)</button>;
+  const taskListData = [];
 
   return (
-    <div className={css.container}>
-      {taskListData.length ? <TaskList /> : addNewTask}
-    </div>
+    <>
+      <div className={css.container}>
+        {taskListData.length ? <TaskList /> : <CreateYourFirstTask />}
+      </div>
+      <ModalNewTask />
+    </>
   );
 }
