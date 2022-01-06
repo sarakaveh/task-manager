@@ -8,14 +8,16 @@ const TASK = {
 };
 
 // Actions
-export const addTask = createAction<Task>(TASK.add);
+export const addTask = createAction<Omit<Task, 'id'>>(TASK.add);
 export const editTask = createAction<Task>(TASK.edit);
 export const removeTask = createAction<Task['id']>(TASK.remove);
 
 // Reducers
 const taskReducer = createReducer([], {
   [TASK.add]: (state, { payload }) => {
-    state.push(payload);
+    const newTask = { ...payload };
+    newTask.id = 123123;
+    state.push(newTask);
   },
 });
 

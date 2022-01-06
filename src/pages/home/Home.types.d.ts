@@ -3,5 +3,7 @@ export interface Task {
   title: string;
   description: string;
   giftsKPI: string;
-  priority: 'low' | 'medium' | 'high';
+  priority: Priorities;
 }
+
+export type Priorities = 'low' | 'medium' | 'high';
