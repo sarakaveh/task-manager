@@ -8,12 +8,13 @@ import css from './Home.module.scss';
 export function Home(): JSX.Element {
   const taskList = useSelector((state: RootState) => state.taskList);
 
+
   return (
     <>
       <div className={css.container}>
         {taskList.length ? <TaskList /> : <CreateYourFirstTask />}
       </div>
-      <ModalNewTask />
+      <ModalNewTask/>
     </>
   );
 }

@@ -6,7 +6,7 @@ export function CreateYourFirstTask(): JSX.Element {
   const dispatch = useDispatch();
 
   const onClick = (): void => {
-    dispatch(openModal());
+    dispatch(openModal({ mode: 'new' }));
   };
 
   return (

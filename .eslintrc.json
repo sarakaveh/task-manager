@@ -23,6 +23,7 @@
     }
   },
   "rules": {
+    "react/destructuring-assignment": "never",
     "comma-dangle": "off",
     "no-use-before-define": "off",
     "import/prefer-default-export": "off",

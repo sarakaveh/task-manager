@@ -1,4 +1,5 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
+import { Task } from '../pages/home/Home.types';
 
 const MODAL = {
   open: 'modal/open',
@@ -6,20 +7,38 @@ const MODAL = {
 };
 
 // Actions
-export const openModal = createAction(MODAL.open);
+export const openModal = createAction<
+  { data?: Task; mode: 'new' | 'edit' } | undefined
+>(MODAL.open);
 export const closeModal = createAction(MODAL.close);
 
-const initialState = {
+const initialState: { visible: boolean; mode: 'new' | 'edit'; data: Task } = {
   visible: false,
+  mode: 'new',
+  data: {
+    id: undefined,
+    title: '',
+    description: '',
+    giftsKPI: '',
+    priority: 'low',
+  },
 };
 
 // Reducers
 const modalReducer = createReducer(initialState, {
-  [MODAL.open]: (state) => {
+  [MODAL.open]: (state, { payload }) => {
+    console.log('payload', payload);
+    state.mode = payload.mode;
+    if (payload.mode === 'edit') {
+      state.data = payload.data;
+    } else {
+      state.data = initialState.data;
+    }
     state.visible = true;
   },
   [MODAL.close]: (state) => {
     state.visible = false;
+    state.mode = 'new';
   },
 });
 

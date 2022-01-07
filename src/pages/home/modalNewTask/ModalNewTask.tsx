@@ -7,20 +7,29 @@ import {
   TextField,
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RootState } from '../../../store/configureStore';
 import css from './ModalNewTask.module.scss';
 import { closeModal } from '../../../store/modal';
 import { Priorities, Task } from '../Home.types';
-import { addTask } from '../../../store/taskList';
+import { addTask, editTask } from '../../../store/taskList';
 
 export function ModalNewTask(): JSX.Element {
   const dispatch = useDispatch();
   const dialogVisible = useSelector((state: RootState) => state.modal.visible);
-  const [priority, setPriority] = useState<Priorities>('low');
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [giftsKPI, setGiftsKPI] = useState<string>('');
+  const modalMode = useSelector((state: RootState) => state.modal.mode);
+  const modalData = useSelector((state: RootState) => state.modal.data);
+  const [priority, setPriority] = useState<Priorities>(modalData.priority);
+  const [title, setTitle] = useState<string>(modalData.title);
+  const [description, setDescription] = useState<string>(modalData.description);
+  const [giftsKPI, setGiftsKPI] = useState<string>(modalData.giftsKPI);
+
+  useEffect(() => {
+    setTitle(modalData.title);
+    setDescription(modalData.description);
+    setGiftsKPI(modalData.giftsKPI);
+    setPriority(modalData.priority);
+  }, [modalData]);
 
   const onDialogClose = (): void => {
     dispatch(closeModal());
@@ -33,6 +42,16 @@ export function ModalNewTask(): JSX.Element {
     setGiftsKPI('');
   };
 
+  const updateTask = (task: Task) => {
+    const newData: Omit<Task, 'id'> = {
+      title: task.title,
+      description: task.description,
+      giftsKPI: task.giftsKPI,
+      priority: task.priority,
+    };
+    dispatch(editTask({ id: task.id, data: newData }));
+  };
+
   const onSubmit = (): void => {
     const value: Omit<Task, 'id'> = {
       title,
@@ -40,10 +59,13 @@ export function ModalNewTask(): JSX.Element {
       giftsKPI,
       priority,
     };
-    dispatch(addTask(value));
+
+    if (modalMode === 'edit') {
+      updateTask({ id: modalData.id, ...value });
+    } else if (modalMode === 'new') {
+      dispatch(addTask(value));
+    }
     onDialogClose();
-    resetForm();
-    console.log(value);
   };
 
   return (
