@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/configureStore';
 import { Task } from '../Home.types';
 import { TaskItem } from '../taskItem/TaskItem';
-import { Fab } from '@material-ui/core';
+import {Button, Fab} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { openModal } from '../../../store/modal';
+import { openModal } from '../../../store/modalNewTask';
+import css from './TaskList.module.scss';
 
 export function TaskList(): JSX.Element {
   const dispatch = useDispatch();
@@ -14,8 +15,15 @@ export function TaskList(): JSX.Element {
     dispatch(openModal({ mode: 'new' }));
   };
 
+  const onClick = (): void => {
+    // dispatch(openModal({ mode: 'new' }));
+  };
+
   return (
     <div className="container">
+      <div className={css.blueBtn}>
+        <Button onClick={onClick} variant="contained">View Done Tasks</Button>
+      </div>
       {taskList.map((item: Task) => (
         <TaskItem
           id={item.id}

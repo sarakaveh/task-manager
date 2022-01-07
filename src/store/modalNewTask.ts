@@ -25,7 +25,7 @@ const initialState: { visible: boolean; mode: 'new' | 'edit'; data: Task } = {
 };
 
 // Reducers
-const modalReducer = createReducer(initialState, {
+const modalNewTaskReducer = createReducer(initialState, {
   [MODAL.open]: (state, { payload }) => {
     console.log('payload', payload);
     state.mode = payload.mode;
@@ -42,4 +42,4 @@ const modalReducer = createReducer(initialState, {
   },
 });
 
-export default modalReducer;
+export default modalNewTaskReducer ;

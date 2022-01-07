@@ -10,15 +10,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { RootState } from '../../../store/configureStore';
 import css from './ModalNewTask.module.scss';
-import { closeModal } from '../../../store/modal';
+import { closeModal } from '../../../store/modalNewTask';
 import { Priorities, Task } from '../Home.types';
 import { addTask, editTask } from '../../../store/taskList';
 
 export function ModalNewTask(): JSX.Element {
   const dispatch = useDispatch();
-  const dialogVisible = useSelector((state: RootState) => state.modal.visible);
-  const modalMode = useSelector((state: RootState) => state.modal.mode);
-  const modalData = useSelector((state: RootState) => state.modal.data);
+  const dialogVisible = useSelector(
+    (state: RootState) => state.modalNewTask.visible
+  );
+  const modalMode = useSelector((state: RootState) => state.modalNewTask.mode);
+  const modalData = useSelector((state: RootState) => state.modalNewTask.data);
   const [priority, setPriority] = useState<Priorities>(modalData.priority);
   const [title, setTitle] = useState<string>(modalData.title);
   const [description, setDescription] = useState<string>(modalData.description);
@@ -35,12 +37,12 @@ export function ModalNewTask(): JSX.Element {
     dispatch(closeModal());
   };
 
-  const resetForm = (): void => {
-    setPriority('low');
-    setTitle('');
-    setDescription('');
-    setGiftsKPI('');
-  };
+  // const resetForm = (): void => {
+  //   setPriority('low');
+  //   setTitle('');
+  //   setDescription('');
+  //   setGiftsKPI('');
+  // };
 
   const updateTask = (task: Task) => {
     const newData: Omit<Task, 'id'> = {
