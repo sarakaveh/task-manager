@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { RootState } from '../../../store/configureStore';
+import { RootState } from '../../../store/store';
 import css from './ModalNewTask.module.scss';
 import { closeModal } from '../../../store/modalNewTask';
 import { Priorities, Task } from '../Home.types';
@@ -37,15 +37,9 @@ export function ModalNewTask(): JSX.Element {
     dispatch(closeModal());
   };
 
-  // const resetForm = (): void => {
-  //   setPriority('low');
-  //   setTitle('');
-  //   setDescription('');
-  //   setGiftsKPI('');
-  // };
-
   const updateTask = (task: Task) => {
-    const newData: Omit<Task, 'id'> = {
+    const newData: Task = {
+      id: task.id,
       title: task.title,
       description: task.description,
       giftsKPI: task.giftsKPI,
@@ -55,7 +49,7 @@ export function ModalNewTask(): JSX.Element {
   };
 
   const onSubmit = (): void => {
-    const value: Omit<Task, 'id'> = {
+    const value: Task = {
       title,
       description,
       giftsKPI,
@@ -65,7 +59,7 @@ export function ModalNewTask(): JSX.Element {
     if (modalMode === 'edit') {
       updateTask({ id: modalData.id, ...value });
     } else if (modalMode === 'new') {
-      dispatch(addTask(value));
+      dispatch(addTask({ ...value, done: false }));
     }
     onDialogClose();
   };

@@ -2,9 +2,10 @@ import { useSelector } from 'react-redux';
 import { ModalNewTask } from './modalNewTask/ModalNewTask';
 import { TaskList } from './taskList/TaskList';
 import { CreateYourFirstTask } from './createYourFirstTask/CreateYourFirstTask';
-import { RootState } from '../../store/configureStore';
-import css from './Home.module.scss';
+import { RootState } from '../../store/store';
 import { ModalViewTask } from './modalViewTask/modalViewTask';
+import { ModalDoneTask } from './modalDoneTask/ModalDoneTask';
+import css from './Home.module.scss';
 
 export function Home(): JSX.Element {
   const taskList = useSelector((state: RootState) => state.taskList);
@@ -16,6 +17,7 @@ export function Home(): JSX.Element {
       </div>
       <ModalNewTask />
       <ModalViewTask />
+      <ModalDoneTask />
     </>
   );
 }

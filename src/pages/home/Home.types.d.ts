@@ -4,8 +4,9 @@ export interface Task {
   description: string;
   giftsKPI: string;
   priority: Priorities;
+  done?: boolean;
 }
 
-export type TaskWithoutId = Omit<Task, 'id'>
+export type TaskWithoutId = Omit<Task, 'id'>;
 
 export type Priorities = 'low' | 'medium' | 'high';

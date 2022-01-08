@@ -27,7 +27,6 @@ const initialState: { visible: boolean; mode: 'new' | 'edit'; data: Task } = {
 // Reducers
 const modalNewTaskReducer = createReducer(initialState, {
   [MODAL.open]: (state, { payload }) => {
-    console.log('payload', payload);
     state.mode = payload.mode;
     if (payload.mode === 'edit') {
       state.data = payload.data;

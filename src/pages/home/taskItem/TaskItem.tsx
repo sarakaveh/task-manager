@@ -2,18 +2,24 @@ import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../../store/modalNewTask';
 import { openViewModal } from '../../../store/modalViewTask';
+import { doneTask } from '../../../store/taskList';
 import css from './TaskItem.module.scss';
 import { TaskItemProps } from './TaskItem.types';
 
 export function TaskItem(prop: TaskItemProps): JSX.Element {
   const dispatch = useDispatch();
 
-  const onEdit = (): void => {
-    console.log('edit');
+  const onEdit = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.stopPropagation();
     dispatch(openModal({ mode: 'edit', data: prop }));
   };
 
-  const onTaskClick = (): void => {
+  const onDoneClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.stopPropagation();
+    dispatch(doneTask(prop.id));
+  };
+
+  const onTaskBoxClick = (): void => {
     dispatch(openViewModal({ data: prop }));
   };
 
@@ -39,8 +45,24 @@ export function TaskItem(prop: TaskItemProps): JSX.Element {
     }
   };
 
+  const doneButtonVisibilityTSX = !prop.done ? (
+    <Button onClick={onDoneClick} variant="contained">
+      Done Task
+    </Button>
+  ) : (
+    false
+  );
+
+  const editButtonVisibilityTSX = prop.editable ? (
+    <Button onClick={onEdit} variant="contained">
+      Edit Task
+    </Button>
+  ) : (
+    false
+  );
+
   return (
-    <div onClick={onTaskClick} className={css.container}>
+    <div onClick={onTaskBoxClick} className={css.container}>
       <div className={css.item}>
         <div className={css.taskTitle}>{prop.title}</div>
         <div className={css.taskPriority}>
@@ -49,31 +71,10 @@ export function TaskItem(prop: TaskItemProps): JSX.Element {
         </div>
         <div className={css.description}>{prop.description}</div>
         <div className={css.taskBtn}>
-          <Button onClick={onEdit} variant="contained">
-            Done Task
-          </Button>
-          <Button onClick={onEdit} variant="contained">
-            Edit Task
-          </Button>
+          {doneButtonVisibilityTSX}
+          {editButtonVisibilityTSX}
         </div>
       </div>
-
-      {/*<div>*/}
-      {/*  title:*/}
-      {/*  {prop.title}*/}
-      {/*</div>*/}
-      {/*<div>*/}
-      {/*  description:*/}
-      {/*  {prop.description}*/}
-      {/*</div>*/}
-      {/*<div>*/}
-      {/*  giftsKPI:*/}
-      {/*  {prop.giftsKPI}*/}
-      {/*</div>*/}
-      {/*<div>*/}
-      {/*  priority:*/}
-      {/*  {prop.priority}*/}
-      {/*</div>*/}
     </div>
   );
 }

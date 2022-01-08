@@ -1,7 +1,6 @@
-import { ElementType } from 'react';
 import { Provider } from 'react-redux';
 import { Home } from './pages/home/Home';
-import { store } from './store/configureStore';
+import { store } from './store/store';
 import './global-styles/index.scss';
 
 export function App(): JSX.Element {

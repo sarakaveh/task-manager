@@ -1,3 +1,5 @@
 import { Task } from '../Home.types.d';
 
-export type TaskItemProps = Task;
+export interface TaskItemProps extends Task {
+  editable: boolean;
+}
