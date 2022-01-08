@@ -1,9 +1,39 @@
 .container {
   width: 400px;
-  height: 400px;
-  padding: 0 20px;
+  height: 200px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+}
+
+.row1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column: 2 / span 2;
+  text-align: center;
+}
+
+.row2 {
+  margin-top: 20px;
+}
+
+.row3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  margin-top: auto;
+}
+
+.priority {
+  display: flex;
+  gap: 10px;
   align-items: center;
+  justify-self: end;
+}
+
+.priorityShape{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid black;
 }

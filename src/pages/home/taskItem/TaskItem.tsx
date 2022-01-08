@@ -46,7 +46,9 @@ export function TaskItem(prop: TaskItemProps): JSX.Element {
   };
 
   const doneButtonVisibilityTSX = !prop.done ? (
-    <Button onClick={onDoneClick} variant="contained">
+    <Button 
+    style={{ backgroundColor: '#c0871c', minWidth: 120 ,  height: 20 , border: '1px solid black' }}
+    onClick={onDoneClick} variant="contained">
       Done Task
     </Button>
   ) : (
@@ -54,7 +56,13 @@ export function TaskItem(prop: TaskItemProps): JSX.Element {
   );
 
   const editButtonVisibilityTSX = prop.editable ? (
-    <Button onClick={onEdit} variant="contained">
+    <Button
+      style={{ backgroundColor: '#52ce52', minWidth: 120 ,  height: 20 , border: '1px solid black' }}
+      onClick={onEdit}
+      size='small'
+    
+      variant="contained"
+    >
       Edit Task
     </Button>
   ) : (

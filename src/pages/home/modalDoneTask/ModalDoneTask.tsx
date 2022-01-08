@@ -25,7 +25,11 @@ export function ModalDoneTask(): JSX.Element {
 
   return (
     <Dialog open={dialogVisible} onClose={onModalClose}>
-      <div className={css.container}>{doneTaskListJSX}</div>
+    
+      <div className={css.container}>
+      {!doneTaskList.length && <div className={css.empty}>there is nothing task</div>}
+        {doneTaskListJSX}
+        </div>
     </Dialog>
   );
 }

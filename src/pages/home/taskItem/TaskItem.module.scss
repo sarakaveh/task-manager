@@ -42,15 +42,3 @@
   overflow: hidden;
   white-space: nowrap;
 }
-
-.taskBtn Button{
-  height: 20px;
-  font-size: 10px;
-  border: 1px solid black;
-  &:nth-child(1) {
-    background-color: #c0871c;
-  }
-  &:nth-child(2) {
-    background-color: #52ce52;
-  }
-}
