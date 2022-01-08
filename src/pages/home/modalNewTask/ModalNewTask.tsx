@@ -113,7 +113,7 @@ export function ModalNewTask(): JSX.Element {
           <FormControlLabel value="high" control={<Radio />} label="high" />
         </RadioGroup>
         <Button onClick={onSubmit} variant="contained">
-          add to tasks
+          {modalMode === 'new' ? 'add to tasks' : 'update task'}
         </Button>
       </div>
     </Dialog>

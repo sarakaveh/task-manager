@@ -17,15 +17,20 @@ export const removeTask = createAction<Task['id']>(TASK.remove);
 
 // Reducers
 const taskReducer = createReducer([], {
-  [TASK.add]: (state, { payload }) => {
+  [TASK.add]: (state: Task[], { payload }) => {
     const newTask = { ...payload };
     newTask.id = state.length + 1;
     state.push(newTask);
   },
-  [TASK.edit]: (state, { payload }) => {
+  [TASK.edit]: (state: Task[], { payload }) => {
     const { id, data } = payload;
     const i = state.findIndex((task) => task.id === id);
-    state[i] = data;
+    const newState = [...state];
+    newState[i] = data;
+    return newState;
+  },
+  [TASK.remove]: (state: Task[], { payload }) => {
+    return state.filter((item) => item.id !== payload);
   },
 });
 

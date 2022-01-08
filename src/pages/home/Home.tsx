@@ -15,7 +15,7 @@ export function Home(): JSX.Element {
         {taskList.length ? <TaskList /> : <CreateYourFirstTask />}
       </div>
       <ModalNewTask />
-      {/*<ModalViewTask />*/}
+      <ModalViewTask />
     </>
   );
 }

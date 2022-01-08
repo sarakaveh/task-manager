@@ -2,8 +2,8 @@ import { createReducer, createAction } from '@reduxjs/toolkit';
 import { Task } from '../pages/home/Home.types';
 
 const MODAL = {
-  open: 'modal/open',
-  close: 'modal/close',
+  open: 'newTaskModal/open',
+  close: 'newTaskModal/close',
 };
 
 // Actions
@@ -32,7 +32,7 @@ const modalNewTaskReducer = createReducer(initialState, {
     if (payload.mode === 'edit') {
       state.data = payload.data;
     } else {
-      state.data = initialState.data;
+      state.data = { ...initialState.data };
     }
     state.visible = true;
   },
@@ -42,4 +42,4 @@ const modalNewTaskReducer = createReducer(initialState, {
   },
 });
 
-export default modalNewTaskReducer ;
+export default modalNewTaskReducer;
